@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
+# Parse data from http://flavorsofcacao.com/database_w_REF.html
 # Code from https://srome.github.io/Parsing-HTML-Tables-in-Python-with-BeautifulSoup-and-pandas/
 
 class HTMLTableParser:
@@ -71,6 +72,37 @@ class HTMLTableParser:
 
 url = "http://flavorsofcacao.com/database_w_REF.html"
 hp = HTMLTableParser()
-table = hp.parse_url(url)[0][1]
+df = hp.parse_url(url)[0][1]
 
-table.to_csv('./dataset.csv', index=False)
+# Remove % symbol from Cocoa Percent and convert to float
+df['Cocoa Percent'] = df['Cocoa Percent'].str.replace('%', '').astype('float')
+
+# Join dataset with country data to get continent and sub-region
+# Country data taken from https://unstats.un.org/unsd/methodology/m49/
+
+# Change some country names to match names from country dataset
+df['Company Location'] = df['Company Location'].str.replace('Sao Tome & Principe', 'Sao Tome')
+df['Company Location'] = df['Company Location'].str.replace('Amsterdam', 'Netherlands')
+df['Company Location'] = df['Company Location'].str.replace('Scotland|Wales', 'U.K.')
+df['Country of Bean Origin'] = df['Country of Bean Origin'].str.replace('Sao Tome & Principe|^Principe', 'Sao Tome')
+df['Country of Bean Origin'] = df['Country of Bean Origin'].str.replace('Trinidad$|^Tobago', 'Trinidad and Tobago')
+df['Country of Bean Origin'] = df['Country of Bean Origin'].str.replace('Sumatra|Sulawesi', 'Indonesia')
+df['Country of Bean Origin'] = df['Country of Bean Origin'].str.replace('Bolvia', 'Bolivia')
+df['Country of Bean Origin'] = df['Country of Bean Origin'].str.replace('blend', 'Blend')
+
+# Get continent and sub-region of Company Location
+df = df.merge(countries.rename(lambda s: s+'_comp_loc', axis=1), 
+              how='left', 
+              right_on='Country_comp_loc', 
+              left_on='Company Location').drop('Country_comp_loc', axis=1)
+
+# Get continent and sub-region of Country of Bean Origin
+df = df.merge(countries.rename(lambda s: s+'_origin', axis=1), 
+              how='left', 
+              right_on='Country_origin', 
+              left_on='Country of Bean Origin').drop('Country_origin', axis=1)
+
+# Fill data for blends
+df = df.fillna({'Continent_origin':'Blend', 'Sub-region_origin':'Blend', 'Country_origin':'Blend'})
+
+df.to_csv('./dataset.csv', index=False)
