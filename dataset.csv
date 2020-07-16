@@ -1,4 +1,4 @@
-REF,Company (Manufacturer),Company Location,Review Date,Country of Bean Origin,Specific Bean Origin or Bar Name,Cocoa Percent,Ingredients,Most Memorable Characteristics,Rating,Continent_comp_loc,Sub-region_comp_loc,Continent_origin,Sub-region_origin
+REF,Company (Manufacturer),Company Location,Review Date,Country of Bean Origin,Specific Bean Origin or Bar Name,Cocoa Percent,Ingredients,Most Memorable Characteristics,Rating,Continent_company,Sub-region_company,Continent_origin,Sub-region_origin
 2454.0,5150,U.S.A.,2019.0,Madagascar,"Bejofo Estate, batch 1",76.0,"3- B,S,C","cocoa, blackberry, full body",3.75,Americas,Northern America,Africa,Sub-Saharan Africa
 2458.0,5150,U.S.A.,2019.0,Dominican Republic,"Zorzal, batch 1",76.0,"3- B,S,C","cocoa, vegetal, savory",3.5,Americas,Northern America,Americas,Latin America and the Caribbean
 2454.0,5150,U.S.A.,2019.0,Tanzania,"Kokoa Kamili, batch 1",76.0,"3- B,S,C","rich cocoa, fatty, bready",3.25,Americas,Northern America,Africa,Sub-Saharan Africa

@@ -91,10 +91,11 @@ df['Country of Bean Origin'] = df['Country of Bean Origin'].str.replace('Bolvia'
 df['Country of Bean Origin'] = df['Country of Bean Origin'].str.replace('blend', 'Blend')
 
 # Get continent and sub-region of Company Location
-df = df.merge(countries.rename(lambda s: s+'_comp_loc', axis=1), 
+countries = pd.read_csv('./countries.csv')
+df = df.merge(countries.rename(lambda s: s+'_company', axis=1), 
               how='left', 
-              right_on='Country_comp_loc', 
-              left_on='Company Location').drop('Country_comp_loc', axis=1)
+              right_on='Country_company', 
+              left_on='Company Location').drop('Country_company', axis=1)
 
 # Get continent and sub-region of Country of Bean Origin
 df = df.merge(countries.rename(lambda s: s+'_origin', axis=1), 
