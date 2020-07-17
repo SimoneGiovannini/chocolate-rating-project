@@ -106,4 +106,19 @@ df = df.merge(countries.rename(lambda s: s+'_origin', axis=1),
 # Fill data for blends
 df = df.fillna({'Continent_origin':'Blend', 'Sub-region_origin':'Blend', 'Country_origin':'Blend'})
 
+# Parse company and manufacturer from Company (Manufacturer)
+def get_manifacturer(s):
+    if s[-1]==')': # Manufacturer is between parenthesis if present
+        i = s.rfind('(')
+        company = s[:i].strip()
+        manufacturer = s[i+1:-1]
+    else: # If no manufacturer set it equal to company
+        company = s
+        manufacturer = s
+    return company, manufacturer
+
+df['Manufacturer'] = df['Company (Manufacturer)'].apply(lambda s: get_manifacturer(s)[1])
+df['Company'] = df['Company (Manufacturer)'].apply(lambda s: get_manifacturer(s)[0])
+df = df.drop('Company (Manufacturer)', axis=1)
+
 df.to_csv('./dataset.csv', index=False)
