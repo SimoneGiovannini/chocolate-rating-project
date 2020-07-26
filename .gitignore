@@ -1,4 +1,5 @@
 eda_old.ipynb
 .ipynb*
 pca.ipynb
-catboost_info
+catboost_info/
+__pycache__/
