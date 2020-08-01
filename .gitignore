@@ -1,6 +1,7 @@
 eda_old.ipynb
-models_old.ipynb
+models_old*
 .ipynb*
 pca.ipynb
 catboost_info/
 __pycache__/
+*.txt
