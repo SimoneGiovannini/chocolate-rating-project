@@ -34,11 +34,15 @@ The data was taken from http://flavorsofcacao.com(last update on March 14, 2020)
 We analyzed the dataset by creating lots of visualizations and tables. The following are some examples.
 
 - Soma is the top rated company among those which got more than 10 reviews:
+![Top rated Company Locations](top_rated.png)
 
 Here are boxplots of rating distributions for the companies with most reviews:
+![Rating distribution by Company](company_ratings.png)
 
 - Most companies are located in Northern America:
+![Rating distribution by Company](company_locations.png)
 
 while most of the cocoa beans have origin from Latin America and the Caribbean:
+![Rating distribution by Company](origin_regions.png)
 
 [work in progress]
