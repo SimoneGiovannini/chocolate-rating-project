@@ -31,6 +31,8 @@ def eval_mod(model, X_test, y_test):
 
 def clip_model(model):
     # Force model predictions to be between 1 and 4
+    import numpy as np
+    
     class ClippedModel(model):
         def predict(self, X):
             pred = super().predict(X)
