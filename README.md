@@ -45,4 +45,27 @@ Here are boxplots of rating distributions for the companies with most reviews:
 while most of the cocoa beans have origin from Latin America and the Caribbean:
 ![Rating distribution by Company](origin_regions.png)
 
+## Model Training
+
+We trained four different Machine Learning models to predict the rating of a chocolate bar:
+
+- Linear Regression: baseline model. Since the dataset's dimension got high after one hot encoding categorical variables, we applied feature selection before training the model. The number of features to keep (55) was selected via cross validation.
+
+- Ridge Regression: we tried to regularize the Linear Regression model by applying ridge shrinking. Again we performed feature selection before training, this time keeping 95 features. We chose Ridge Regression over Lasso because it performed better.
+
+- Support Vector Regressor: SVMs are usually good for small but high dimensional dataset. We used Scikit-Learn's LinearSVR because it is faster than SVR and experiments with the latter showed that the linear kernel performed better than other kernels. Hyperparameters were tuned via cross validation. This time we did not apply feature selection because the model performed better with all the features.
+
+- CatBoost: our dataset has a lot of categorical features with high cardinality, so we trained a CatBoost model since it has an internal method of dealing with this type of features. Moreover, CatBoost provides a very nice functionality for calculating feature importance.
+
+## Model Evaluation
+
+We used RMSE as the evaluation metric in training all our models. Here are the results of the evaluations on the test set. For completeness, we also reported the MAE and the R^2.
+
+| Model             | RMSE  | MAE   | R^2   |
+|-------------------|-------|-------|-------|
+| Linear Regression | 0.418 | 0.326 | 0.196 |
+| Ridge Regression  | 0.409 | 0.320 | 0.229 |
+| Linear SVR        | 0.398 | 0.311 | 0.270 |
+| CatBoost          | 0.390 | 0.307 | 0.301 |
+
 [work in progress]
